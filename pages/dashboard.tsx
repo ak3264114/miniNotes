@@ -186,9 +186,8 @@ export default function Dashboard() {
         setNotes(fetchedNotes);
     };
     useEffect(() => {
-
         fetchNotes();
-    }, [router]);
+    }, []);
 
     const handleNoteSubmit = (noteData: NewNote) => {
         if (isEditing) {

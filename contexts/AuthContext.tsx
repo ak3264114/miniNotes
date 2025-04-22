@@ -3,10 +3,12 @@ import { checkSession, loginUser, signupUser } from '@/services/auth';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import toast from 'react-hot-toast';
 
+
 interface User {
     id: string;
     name: string;
     email: string;
+    phone: string;
 }
 
 
@@ -30,10 +32,10 @@ const AuthContext = createContext<AuthContextType>({
     refreshUser: async () => { },
 });
 
-
 interface AuthProviderProps {
     children: ReactNode;
 }
+
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
@@ -42,17 +44,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     useEffect(() => {
         const initializeAuth = async () => {
-            setIsLoading(false);
+            setIsLoading(true);
             try {
                 const session = await checkSession();
                 if (session && session.user) {
-                    setUser(session.user.user_metadata);
+                    setUser({
+                        name: session.user.user_metadata?.name || '',
+                        phone: session.user.user_metadata?.phone || '',
+                        email: session.user.user_metadata?.email || '',
+                        id: session.user.id || ''
+                    });
                     setIsLoggedIn(true);
                     console.log('User is logged in:', session.user);
                 }
             } catch (error) {
                 console.error('Failed to initialize auth:', error);
-                setIsLoading(false);
             } finally {
                 setIsLoading(false);
             }
@@ -71,11 +77,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 return false;
             }
             if (data && data.user) {
-                setUser(data.user.user_metadata);
+                setUser({
+                    name: data.user.user_metadata?.name || '',
+                    phone: data.user.user_metadata?.phone || '',
+                    email: data.user.user_metadata?.email || '',
+                    id: data.user.id || ''
+                });
                 toast.success('Login successful!');
                 setIsLoggedIn(true);
                 return true;
-
             }
             return false;
         } catch (error) {
@@ -85,6 +95,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             setIsLoading(false);
         }
     };
+
     const signup = async (email: string, password: string, name: string, phone: string): Promise<boolean> => {
         try {
             setIsLoading(true);
@@ -95,21 +106,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 return false;
             }
             if (data && data.user) {
-                setUser(data.user.user_metadata);
+                setUser(
+                    {
+                        name: data.user.user_metadata?.name || '',
+                        phone: data.user.user_metadata?.phone || '',
+                        email: data.user.user_metadata?.email || '',
+                        id: data.user.id || ''
+                    }
+                )
+
                 toast.success('Signup successful!');
                 setIsLoggedIn(true);
                 return true;
             }
             return false;
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Signup error:', error);
             return false;
-        }
-        finally {
+        } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     const logout = async (): Promise<void> => {
         try {
@@ -117,8 +134,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             const { error } = await supabase.auth.signOut();
             if (error) {
                 toast.error(error.message);
-            }
-            else {
+            } else {
                 setUser(null);
                 setIsLoggedIn(false);
             }
@@ -133,7 +149,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             const session = await checkSession();
             if (session && session.user) {
-                setUser(session.user.user_metadata);
+                setUser({
+                    name: session.user.user_metadata?.name || '',
+                    phone: session.user.user_metadata?.phone || '',
+                    email: session.user.user_metadata?.email || '',
+                    id: session.user.id || ''
+                });
                 setIsLoggedIn(true);
             } else {
                 setUser(null);

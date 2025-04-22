@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/contexts/AuthContext";
+import Link from "next/link";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ export default function Login() {
             router.push('/dashboard');
         }
 
-    }, [isLoggedIn]);
+    }, [isLoggedIn , router]);
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
@@ -65,9 +66,9 @@ export default function Login() {
 
                 <p className="text-center text-sm text-gray-600">
                     {"Don't have an account? "}
-                    <a href="/auth/signup" className="text-blue-600 hover:underline">
+                    <Link href="/auth/signup" className="text-blue-600 hover:underline">
                         Sign Up
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

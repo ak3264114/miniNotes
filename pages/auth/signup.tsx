@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import Link from "next/link";
 
 export default function Signup() {
     const [name, setName] = useState('');
@@ -33,7 +34,7 @@ export default function Signup() {
         }
 
 
-    }, [isLoggedIn]);
+    }, [isLoggedIn , router]);
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
@@ -95,9 +96,9 @@ export default function Signup() {
 
                 <p className="text-center text-sm text-gray-600 mt-4">
                     Already have an account?{" "}
-                    <a href="/auth/login" className="text-blue-600 hover:underline">
+                    <Link href="/auth/login" className="text-blue-600 hover:underline">
                         Login
-                    </a>
+                    </Link>
                 </p>
             </form>
         </div>

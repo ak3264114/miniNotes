@@ -55,7 +55,7 @@ NEXT_PUBLIC_OPENROUTER_API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```bash 
 npm run dev
 ```
-
+View Live: [miniNotes](https://mini-notes-one.vercel.app/)
 ---
 
 
