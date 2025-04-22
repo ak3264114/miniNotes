@@ -3,8 +3,8 @@ export async function summarizeNotes(messageContent: string) {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPENROUTER_API_KEY}`,
-            "HTTP-Referer": "https://code-more-frontend.vercel.app/",
-            "X-Title": "CodeMore",
+            "HTTP-Referer": "https://mini-notes-one.vercel.app/auth/login",
+            "X-Title": "MiniNotes",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
