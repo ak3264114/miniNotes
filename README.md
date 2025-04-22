@@ -29,5 +29,33 @@ Organize your thoughts, summaries, and ideas smarter, not harder.
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/mini-notes.git
+git clone https://github.com/ak3264114/miniNotes.git
+
+```
+
+```bash
 cd mini-notes
+```
+
+2. **Install dependencies** (using npm) 
+```bash
+npm install
+```
+3. **Setup environment variables**
+Create a `.env` file in the root directory and add the following:
+
+Example of environment variables:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-supabase-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_OPENROUTER_API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+4. **Run the development server**
+```bash 
+npm run dev
+```
+
+---
+
+
